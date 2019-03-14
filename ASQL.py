@@ -1,4 +1,12 @@
 class ASQL:
+    """
+    This class takes a single list. Each item in the list MUST be of the same datatype.
+    This allows you to query the properties in a list quickly and easily.
+    It is basicaly SQL, but for python lists/arrays
+
+    GitHub:
+    https://github.com/CPSuperstore-Inc/ASQL
+    """
     # region List Behavior Items
     def __init__(self, iterable=None):
         """
@@ -78,6 +86,7 @@ class ASQL:
         return sum(getattr(node, prop) for node in results) / float(len(results))
     # endregion
 
+    # region Generic Selection
     def select(self, what: str="", where: str = "", flat_list: bool = False, as_map: bool=False):
         """
         Allows the user to select values based off the criteria
@@ -190,7 +199,9 @@ class ASQL:
 
         # return the set
         return results
+    # endregion
 
+    # region Generic Modifications
     def delete(self, query: str = ""):
         """
         Deletes any items which match a specified query
@@ -228,7 +239,9 @@ class ASQL:
                 # apply the change to each item
                 prop, val = i.split("=")
                 setattr(queued[item], prop, eval(val))
+    # endregion
 
+    # region Special Modifications
     def remove_duplicates(self, prop: str):
         """
         Removes duplicate values of a property
@@ -276,3 +289,4 @@ class ASQL:
             # add the value to the list of located values, if it is not already in the list
             if val not in found:
                 found.append(val)
+    # endregion
